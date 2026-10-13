@@ -2,19 +2,38 @@
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101827"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Baby Care"><title>Baby Care | 新生児お世話記録</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#101827;--panel:#1c293a;--line:#354256;--text:#f6f8fb;--muted:#afbed0;--accent:#a7c9ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}main{max-width:700px;margin:auto;padding:20px 16px 45px}header{display:flex;align-items:center;justify-content:space-between}h1{font-size:23px;margin:4px 0}h2{font-size:17px;margin:0 0 14px}.sub,.muted{color:var(--muted);font-size:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:16px}.clock{text-align:center;font-size:clamp(60px,13vw,92px);font-weight:750;letter-spacing:-3px;font-variant-numeric:tabular-nums}.date{text-align:center;color:var(--muted)}.next{text-align:center;font-size:clamp(42px,10vw,64px);font-weight:750;margin:8px 0;font-variant-numeric:tabular-nums}.remaining{text-align:center;color:var(--accent);font-size:18px;font-weight:650}.last{text-align:center;margin-top:12px;color:var(--muted)}.controls{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:15px;flex-wrap:wrap}select,input,button{font:inherit}select,input{color:var(--text);background:#101827;border:1px solid #607089;border-radius:12px;padding:10px;max-width:100%}button{cursor:pointer;border:0;border-radius:16px;padding:14px 10px;font-weight:700;color:#101827;touch-action:manipulation}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.action{min-height:112px;font-size:18px}.action span{display:block;font-size:28px;margin-bottom:10px}.feed{background:#ffc989}.breast{background:#f5b9da}.pee{background:#a4d9ff}.poop{background:#bce8ae}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{text-align:center;border:1px solid var(--line);border-radius:14px;padding:13px 5px}.stat strong{display:block;font-size:29px}.stat small{color:var(--muted)}.record{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.record:last-child{border:0}.record small{display:block;color:var(--muted);margin-top:4px}.mini{color:var(--text);background:#34445c;font-size:13px;padding:9px 11px;margin-left:5px}.danger{background:#683a42}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.spaced{justify-content:space-between}.amount-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.amount-buttons button{background:#34445c;color:#fff}.amount-buttons button.selected{background:#ffc989;color:#101827}.note{line-height:1.6;color:var(--muted);font-size:13px}.sound-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sound-controls button{background:#34445c;color:#fff;flex:1;min-width:135px}.sound-controls button[aria-pressed=true]{background:#a7c9ff;color:#101827}.sound-controls label{display:flex;gap:8px;align-items:center;flex:1;min-width:160px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#d8f7df;color:#16311b;border-radius:12px;padding:12px 20px;box-shadow:0 6px 25px #0008;z-index:2}dialog{border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:22px;width:min(92vw,420px)}dialog::backdrop{background:#000a}dialog label{display:block;margin:12px 0}dialog input{display:block;width:100%;margin-top:6px}footer{padding-top:20px;text-align:center}body.light{color-scheme:light;--bg:#f5f7fc;--panel:#fff;--line:#dce2eb;--text:#192333;--muted:#59697b;--accent:#2761ae}body.light select,body.light input{background:#f5f7fc;color:#192333;border-color:#a8b5c6}body.light .mini{background:#e3eaf4;color:#192333}body.light .danger{background:#ffe1e2;color:#8b1823}@media(max-width:400px){.action{font-size:15px;min-height:100px}.panel{padding:16px}.mini{margin-left:2px;padding:8px}}
-</style></head><body><main><header><div><h1>🍼 Baby Care</h1><div class="sub">新生児お世話記録</div></div><button class="mini" id="theme" aria-label="画面の明るさを切り替える">☀️ 明るく</button></header>
-<section class="panel"><div class="date" id="date"></div><div class="clock" id="clock">--:--:--</div></section>
-<section class="panel"><h2>🍼 次のミルクの目安</h2><div class="next" id="next">--:--</div><div class="remaining" id="remaining">ミルクを記録してください</div><div class="last" id="last">最後のミルク：記録なし</div><div class="controls"><label for="interval">ミルクの間隔</label><select id="interval"><option value="120">2時間</option><option value="150">2時間30分</option><option value="180">3時間</option><option value="210">3時間30分</option><option value="240">4時間</option></select></div></section>
-<section class="panel"><h2>ワンタップで記録</h2><div class="actions"><button class="action feed" data-type="formula"><span>🍼</span>ミルク</button><button class="action breast" data-type="breast"><span>🤱</span>母乳</button><button class="action pee" data-type="pee"><span>💧</span>おしっこ</button><button class="action poop" data-type="poop"><span>💩</span>うんち</button></div><p class="note">母乳・排泄はワンタップで記録。ミルクは量を選んで記録します。あとから修正できます。</p></section>
-<section class="panel"><h2>🔈 記録音の設定</h2><div class="sound-controls"><button id="confirmSound" type="button" aria-pressed="true">✓ 記録音：ON</button><label for="confirmVolume">音量 <input id="confirmVolume" type="range" min="0" max="100" step="1" value="35" aria-label="記録音の音量"><output id="confirmVolumeValue" for="confirmVolume">35%</output></label><button id="previewSound" type="button">♪ 試聴</button></div><p class="note">記録が保存されると、小さくやさしい確認音が鳴ります。不要なときはOFFにできます。</p></section>
+#appMenu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}#appMenu[hidden],#homePage[hidden],#weeklyPage[hidden],#settingsPage[hidden]{display:none!important}#appMenu button{padding:12px 4px;font-size:14px}#appMenu button.active{outline:2px solid #8bbcf6}#menuToggle{white-space:nowrap}
+</style></head><body><main><header><div><h1>🍼 Baby Care</h1><div class="sub">新生児お世話記録</div></div><button class="mini" id="menuToggle" type="button" aria-expanded="false">☰ メニュー</button></header><nav id="appMenu" hidden><button type="button" data-page="home">🏠 記録</button><button type="button" data-page="weekly">📊 1週間のログ</button><button type="button" data-page="settings">⚙️ 設定</button></nav><div id="homePage">
+<section class="panel" id="clockPanel"><div class="date" id="date"></div><div class="clock" id="clock">--:--:--</div></section>
+<section class="panel"><h2>🍼 次の授乳の目安</h2><div class="next" id="next">--:--</div><div class="date" id="feedKind" aria-live="polite"></div><div class="remaining" id="remaining">ミルクを記録してください</div><div class="last" id="last">最後のミルク：記録なし</div><div class="controls"><label for="interval">授乳の目安間隔</label><select id="interval"><option value="120">2時間</option><option value="150">2時間30分</option><option value="180">3時間</option><option value="210">3時間30分</option><option value="240">4時間</option></select></div></section>
+<section class="panel" id="recordPanel"><h2>ワンタップで記録</h2><div class="actions"><button class="action feed" data-type="formula"><span>🍼</span>ミルク</button><button class="action breast" data-type="breast"><span>🤱</span>母乳</button><button class="action pee" data-type="pee"><span>💧</span>おしっこ</button><button class="action poop" data-type="poop"><span>💩</span>うんち</button></div><p class="note">「母乳のみ（0 mL）」はミルク選択画面から記録でき、授乳タイマーを更新します。通常の母乳ボタンではタイマーは更新しません。母乳・排泄はワンタップで記録。ミルクは量を選んで記録します。あとから修正できます。</p></section>
 <section class="panel"><h2>🍼 直近24時間のミルク量</h2><div class="next" id="milk24">0 mL</div><div class="date">現在からさかのぼって24時間の合計</div></section><section class="panel"><h2>今日の記録回数</h2><div class="stats" style="grid-template-columns:repeat(4,1fr)"><div class="stat"><strong id="formulaCount">0</strong><small>ミルク</small></div><div class="stat"><strong id="breastCount">0</strong><small>母乳</small></div><div class="stat"><strong id="peeCount">0</strong><small>おしっこ</small></div><div class="stat"><strong id="poopCount">0</strong><small>うんち</small></div></div></section>
 <section class="panel"><div class="row spaced"><h2>記録履歴</h2><div class="row"><button class="mini" id="export">CSV保存</button><button class="mini" id="importButton" type="button">CSV読み込み</button><input id="importFile" type="file" accept=".csv,text/csv" hidden></div></div><p class="note" id="importStatus" role="status">CSVを読み込むと、既存の記録を残したまま追加できます。同じ記録は重複登録しません。</p><div id="history" aria-live="polite"></div></section>
-<footer class="note">データはこのブラウザ内に保存されます。ブラウザデータの削除や端末変更で消える場合があります。<br>ミルクの3時間間隔は設定した目安です。母乳の記録ではリセットされません。赤ちゃんの様子や医療者の指示を優先してください。</footer></main>
+</div><div id="weeklyPage" hidden><section class="panel" id="weeklyPanel"><div class="row spaced"><h2>📊 1週間のログ</h2><button class="mini" type="button" id="weeklyRefresh">更新</button></div>
+<p class="note">今日を含む直近7日間。縦軸は0〜24時、横軸は日付です。ミルク・母乳・排泄の時刻を点で表示します。各日付の真下にミルク合計量（mL）と、母乳・おしっこ・うんちの回数を表示します。</p>
+<div id="weeklyChart" role="img" aria-label="直近7日間の授乳・排泄時刻のプロット" style="width:100%;overflow-x:auto"></div>
+<div id="weeklyTable" style="overflow-x:auto"></div></section>
+</div><div id="settingsPage" hidden><section class="panel"><h2>⚙️ 表示・授乳間隔</h2><div id="settingsInterval"></div><div class="controls"><span>画面テーマ</span><button class="mini" id="theme" aria-label="画面の明るさを切り替える">☀️ 明るく</button></div></section><section class="panel"><h2>↥ 自動スクロール</h2><div class="controls"><label for="autoScrollToggle">45秒間操作がなければ記録ボタン付近に戻る</label><button class="mini" id="autoScrollToggle" type="button" aria-pressed="true">ON</button></div><p class="note">OFFにすると自動では移動しません。設定は保存されます。</p></section><section class="panel"><h2>🔈 記録音の設定</h2><div class="sound-controls"><button id="confirmSound" type="button" aria-pressed="true">✓ 記録音：ON</button><label for="confirmVolume">音量 <input id="confirmVolume" type="range" min="0" max="100" step="1" value="35" aria-label="記録音の音量"><output id="confirmVolumeValue" for="confirmVolume">35%</output></label><button id="previewSound" type="button">♪ 試聴</button></div><p class="note">記録が保存されると、小さくやさしい確認音が鳴ります。不要なときはOFFにできます。</p></section>
+</div><footer class="note">データはこのブラウザ内に保存されます。ブラウザデータの削除や端末変更で消える場合があります。<br>ミルクの3時間間隔は設定した目安です。母乳のみ（0mL）ではリセットされ、通常の母乳記録ではリセットされません。赤ちゃんの様子や医療者の指示を優先してください。</footer></main>
 <dialog id="milkDialog"><form method="dialog" id="milkForm"><h2>🍼 ミルクの量</h2><p class="note">量を選んで「記録する」を押してください。</p><div class="amount-buttons" id="milkPresets"></div><button type="button" class="mini" id="sameAmount" style="width:100%;margin:3px 0 10px">前回と同じ量</button><label>ミルク量（mL）<input id="milkAmount" type="number" inputmode="numeric" min="0" max="500" step="1" required></label><div class="row spaced"><button class="mini" value="cancel">キャンセル</button><button class="feed" value="save">記録する</button></div></form></dialog><dialog id="editDialog"><form method="dialog" id="editForm"><h2>記録を修正</h2><label>日時<input id="editTime" type="datetime-local" required></label><label id="editAmountWrap" hidden>ミルク量（mL）<input id="editAmount" type="number" inputmode="numeric" min="0" max="500" step="1"></label><div class="row spaced"><button class="mini" value="cancel">キャンセル</button><button style="background:#a4d9ff" id="saveEdit" value="save">保存する</button></div></form></dialog>
 <script>
-(()=>{'use strict';const KEY='babycare_records_v1',SET='babycare_settings_v1';const labels={feed:'🍼 授乳（旧記録）',formula:'🍼 ミルク',breast:'🤱 母乳',breastL:'🤱 母乳（左）',breastR:'🤱 母乳（右）',pee:'💧 おしっこ',poop:'💩 うんち'};const $=id=>document.getElementById(id);let records=[],settings={interval:180,light:false,confirmSound:true,confirmVolume:35},editing=null;
+(()=>{'use strict';
+const pages=['home','weekly','settings'];let activePage='home';
+const menu=document.getElementById('appMenu'),menuToggle=document.getElementById('menuToggle');
+document.getElementById('settingsInterval').append(document.getElementById('interval').closest('.controls'));
+function showPage(page){
+ activePage=pages.includes(page)?page:'home';
+ for(const p of pages)document.getElementById(p+'Page').hidden=p!==activePage;
+ menu.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===activePage));
+ menu.hidden=true;menuToggle.setAttribute('aria-expanded','false');
+ window.scrollTo(0,0);
+ if(activePage==='weekly')renderWeekly();
+}
+menuToggle.addEventListener('click',()=>{menu.hidden=!menu.hidden;menuToggle.setAttribute('aria-expanded',String(!menu.hidden))});
+menu.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+const KEY='babycare_records_v1',SET='babycare_settings_v1';const labels={feed:'🍼 授乳（旧記録）',formula:'🍼 ミルク',breast:'🤱 母乳',breastOnly:'🤱 母乳のみ（0 mL）',breastL:'🤱 母乳（左）',breastR:'🤱 母乳（右）',pee:'💧 おしっこ',poop:'💩 うんち'};const $=id=>document.getElementById(id);let records=[],settings={interval:180,light:false,confirmSound:true,confirmVolume:35,autoScroll:true},editing=null;
 try{const x=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(x))records=x.filter(r=>r&&labels[r.type]&&Number.isFinite(r.time)&&typeof r.id==='string');const s=JSON.parse(localStorage.getItem(SET));if(s&&typeof s==='object')settings={...settings,...s}}catch(e){console.warn('保存データを読み込めません',e)}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(records));return true}catch(e){alert('保存できませんでした。ブラウザの保存設定・空き容量を確認してください。');return false}};const saveSettings=()=>{try{localStorage.setItem(SET,JSON.stringify(settings))}catch(e){console.warn(e)}};const dateKey=t=>{const d=new Date(t);return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`};const time=t=>new Date(t).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});const full=t=>new Date(t).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});const pad=n=>String(n).padStart(2,'0');const localInput=t=>{const d=new Date(t);return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`};const sorted=()=>records.slice().sort((a,b)=>b.time-a.time);const latestFeed=()=>sorted().find(r=>r.type==='formula');const lastAmount=()=>sorted().find(r=>r.type==='formula'&&Number.isFinite(r.amount))?.amount;const validAmount=n=>Number.isInteger(n)&&n>=0&&n<=500;const makeId=()=>globalThis.crypto?.randomUUID?.()||String(Date.now())+Math.random();// Web Audio: 音声ファイル不要。ユーザー操作でAudioContextを開始する。
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(records));return true}catch(e){alert('保存できませんでした。ブラウザの保存設定・空き容量を確認してください。');return false}};const saveSettings=()=>{try{localStorage.setItem(SET,JSON.stringify(settings))}catch(e){console.warn(e)}};const dateKey=t=>{const d=new Date(t);return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`};const time=t=>new Date(t).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});const full=t=>new Date(t).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});const pad=n=>String(n).padStart(2,'0');const localInput=t=>{const d=new Date(t);return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`};const sorted=()=>records.slice().sort((a,b)=>b.time-a.time);const latestFeed=()=>sorted().find(r=>r.type==='formula'||r.type==='breastOnly');const lastAmount=()=>sorted().find(r=>r.type==='formula'&&Number.isFinite(r.amount))?.amount;const validAmount=n=>Number.isInteger(n)&&n>=0&&n<=500;const makeId=()=>globalThis.crypto?.randomUUID?.()||String(Date.now())+Math.random();// Web Audio: 音声ファイル不要。ユーザー操作でAudioContextを開始する。
 let audioCtx=null;
 function getAudio(){
   const AudioContextClass=window.AudioContext||window.webkitAudioContext;
@@ -70,9 +89,72 @@ $('previewSound').addEventListener('click',()=>{
   confirmation();
 });
 function addRecord(type,amount){const record={id:makeId(),type,time:Date.now()};if(type==='formula')record.amount=amount;records.push(record);if(!save()){records.pop()}else{confirmation()}render()}
-function tick(){const now=Date.now();$('milk24').textContent=records.filter(r=>r.type==='formula'&&r.time<=now&&r.time>now-86400000&&Number.isFinite(r.amount)).reduce((sum,r)=>sum+r.amount,0)+' mL';$('clock').textContent=new Date(now).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});$('date').textContent=new Date(now).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});const last=latestFeed();$('last').textContent=last?`最後のミルク：${full(last.time)}`:'最後のミルク：記録なし';if(!last){$('next').textContent='--:--';$('remaining').textContent='ミルクを記録してください'}else{const target=last.time+Number(settings.interval)*60000;const diff=target-now;$('next').textContent=time(target);$('remaining').textContent=diff>0?`あと ${Math.floor(Math.ceil(diff/60000)/60)}時間 ${Math.ceil(diff/60000)%60}分`:`目安時刻から ${Math.floor(Math.floor(-diff/60000)/60)}時間 ${Math.floor(-diff/60000)%60}分 経過`}}
-function render(){const today=dateKey(Date.now());for(const type of ['formula','pee','poop'])$(type+'Count').textContent=records.filter(r=>r.type===type&&dateKey(r.time)===today).length;$('breastCount').textContent=records.filter(r=>['breast','breastL','breastR'].includes(r.type)&&dateKey(r.time)===today).length;const root=$('history');root.replaceChildren();if(!records.length){const p=document.createElement('p');p.className='note';p.textContent='まだ記録がありません。上のボタンから記録できます。';root.append(p)}for(const r of sorted().slice(0,100)){const row=document.createElement('div');row.className='record';const info=document.createElement('div');const strong=document.createElement('strong');strong.textContent=labels[r.type]+(r.type==='formula'&&Number.isFinite(r.amount)?` · ${r.amount} mL`:'');const small=document.createElement('small');small.textContent=full(r.time);info.append(strong,small);const controls=document.createElement('div');const edit=document.createElement('button');edit.className='mini';edit.textContent='修正';edit.addEventListener('click',()=>{editing=r.id;$('editTime').value=localInput(r.time);$('editAmountWrap').hidden=r.type!=='formula';$('editAmount').required=r.type==='formula';$('editAmount').value=Number.isFinite(r.amount)?String(r.amount):'';$('editDialog').showModal()});const del=document.createElement('button');del.className='mini danger';del.textContent='削除';del.addEventListener('click',()=>{if(confirm(`${labels[r.type]}（${full(r.time)}）を削除しますか？`)){const old=records;records=records.filter(x=>x.id!==r.id);if(!save())records=old;render()}});controls.append(edit,del);row.append(info,controls);root.append(row)}tick()}
-const presets=[40,60,80,100,120,140];for(const amount of presets){const b=document.createElement('button');b.type='button';b.textContent=amount+' mL';b.addEventListener('click',()=>{$('milkAmount').value=String(amount);updatePresets()});$('milkPresets').append(b)}function updatePresets(){for(const b of $('milkPresets').children)b.classList.toggle('selected',parseInt(b.textContent,10)===Number($('milkAmount').value)&&$('milkAmount').value!=='')}function openMilk(){const prev=lastAmount();$('milkAmount').value=prev===undefined?'':String(prev);$('sameAmount').disabled=prev===undefined;$('sameAmount').textContent=prev===undefined?'前回の記録はありません':`前回と同じ量（${prev} mL）`;updatePresets();$('milkDialog').showModal()}$('sameAmount').addEventListener('click',()=>{const prev=lastAmount();if(prev!==undefined){$('milkAmount').value=String(prev);updatePresets()}});$('milkAmount').addEventListener('input',updatePresets);$('milkForm').addEventListener('submit',e=>{if(e.submitter?.value!=='save')return;const amount=Number($('milkAmount').value);if(!validAmount(amount)||$('milkAmount').value===''){e.preventDefault();alert('0〜500 mLの整数を入力してください');return}addRecord('formula',amount)});for(const b of document.querySelectorAll('[data-type]'))b.addEventListener('click',()=>{if(b.dataset.type==='formula')openMilk();else addRecord(b.dataset.type)});$('editForm').addEventListener('submit',e=>{if(e.submitter?.value!=='save')return;const value=$('editTime').value;const t=new Date(value).getTime();const r=records.find(x=>x.id===editing);const amount=Number($('editAmount').value);if(!Number.isFinite(t)||(r?.type==='formula'&&($('editAmount').value===''||!validAmount(amount)))){e.preventDefault();alert('正しい日時とミルク量を入力してください');return}if(r){const old={...r};r.time=t;if(r.type==='formula')r.amount=amount;if(!save())Object.assign(r,old)}render()});$('interval').value=String([120,150,180,210,240].includes(Number(settings.interval))?settings.interval:180);settings.interval=Number($('interval').value);$('interval').addEventListener('change',e=>{settings.interval=Number(e.target.value);saveSettings();tick()});function theme(){document.body.classList.toggle('light',!!settings.light);$('theme').textContent=settings.light?'🌙 暗く':'☀️ 明るく'}$('theme').addEventListener('click',()=>{settings.light=!settings.light;saveSettings();theme()});theme();$('export').addEventListener('click',()=>{const lines=['日時,種類,ミルク量(mL)',...sorted().map(r=>`"${new Date(r.time).toLocaleString('ja-JP')}","${labels[r.type].slice(2)}","${r.type==='formula'&&Number.isFinite(r.amount)?r.amount:''}"`)];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='babycare_records.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+function tick(){const now=Date.now();$('milk24').textContent=records.filter(r=>r.type==='formula'&&r.time<=now&&r.time>now-86400000&&Number.isFinite(r.amount)).reduce((sum,r)=>sum+r.amount,0)+' mL';$('clock').textContent=new Date(now).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});$('date').textContent=new Date(now).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});const last=latestFeed();$('last').textContent=last?`前回の授乳：${full(last.time)}`:'前回の授乳：記録なし';$('feedKind').textContent=last?(last.type==='breastOnly'?'🤱 前回は母乳のみ（0 mL）':'🍼 前回はミルク'):' ';if(!last){$('next').textContent='--:--';$('remaining').textContent='ミルクまたは母乳のみを記録してください'}else{const target=last.time+Number(settings.interval)*60000;const diff=target-now;$('next').textContent=time(target);$('remaining').textContent=diff>0?`あと ${Math.floor(Math.ceil(diff/60000)/60)}時間 ${Math.ceil(diff/60000)%60}分`:`目安時刻から ${Math.floor(Math.floor(-diff/60000)/60)}時間 ${Math.floor(-diff/60000)%60}分 経過`}}
+function renderWeekly(){
+ const chart=$('weeklyChart'),table=$('weeklyTable');
+ if(!chart||!table)return;
+ const now=new Date(),days=[];
+ const types=[
+  {key:'formula',label:'🍼 ミルク',color:'#f3a94d'},
+  {key:'breast',label:'🤱 母乳',color:'#ed8bbd'},
+  {key:'pee',label:'💧 おしっこ',color:'#64baf0'},
+  {key:'poop',label:'💩 うんち',color:'#82c97a'}
+ ];
+ const category=t=>t==='formula'||t==='feed'?'formula':['breast','breastOnly','breastL','breastR'].includes(t)?'breast':t;
+ for(let i=6;i>=0;i--){
+  const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i),key=dateKey(d.getTime());
+  days.push({label:`${d.getMonth()+1}/${d.getDate()}`,items:records.filter(r=>dateKey(r.time)===key)});
+ }
+ const W=760,L=82,R=12,T=43,B=640,plotW=W-L-R,plotH=B-T;
+ const colW=plotW/7;
+ let svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} 795" style="display:block;width:100%;min-width:360px" aria-label="縦軸は0時から24時、横軸は直近7日間。下部に日別のミルク合計量と記録回数" role="img">`;
+ for(let hr=0;hr<=24;hr+=3){
+  const y=T+plotH*hr/24;
+  svg+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="currentColor" opacity=".18"/><text x="${L-10}" y="${y+4}" text-anchor="end" font-size="13" fill="currentColor">${hr}:00</text>`;
+ }
+ days.forEach((day,i)=>{
+  const x=L+colW*(i+.5);
+  svg+=`<text x="${x}" y="${T-17}" text-anchor="middle" font-size="14" fill="currentColor">${day.label}</text>`;
+  if(i>0)svg+=`<line x1="${L+colW*i}" y1="${T}" x2="${L+colW*i}" y2="${B}" stroke="currentColor" opacity=".10"/>`;
+  const grouped=new Map();
+  day.items.forEach(r=>{
+   const type=category(r.type),cat=types.find(c=>c.key===type);if(!cat)return;
+   const dt=new Date(r.time),mins=dt.getHours()*60+dt.getMinutes()+dt.getSeconds()/60;
+   const k=`${type}-${Math.floor(mins/10)}`;
+   const n=grouped.get(k)||0;grouped.set(k,n+1);
+   const dx={formula:-16,breast:-5,pee:6,poop:17}[type]+Math.min(n,3)*2;
+   const cy=T+plotH*mins/1440;
+   svg+=`<circle cx="${x+dx}" cy="${cy.toFixed(2)}" r="5.2" fill="${cat.color}" stroke="#263143" stroke-width="1"><title>${day.label} ${dt.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})} ${cat.label}${type==='formula'&&Number.isFinite(r.amount)?' '+r.amount+'mL':''}</title></circle>`;
+  });
+ });
+ svg+=`<line x1="${L}" y1="${B+17}" x2="${W-R}" y2="${B+17}" stroke="currentColor" opacity=".4"/>`;
+ types.forEach((t,j)=>{
+  const y=B+43+j*31;
+  svg+=`<circle cx="9" cy="${y}" r="5" fill="${t.color}"/><text x="19" y="${y+4}" text-anchor="start" font-size="12" fill="currentColor">${['ミルクmL','母乳','おしっこ','うんち'][j]}</text>`;
+  days.forEach((day,i)=>{
+   const n=t.key==='formula'?day.items.filter(r=>category(r.type)==='formula'&&Number.isFinite(r.amount)).reduce((sum,r)=>sum+r.amount,0):day.items.filter(r=>category(r.type)===t.key).length;
+   svg+=`<text x="${L+colW*(i+.5)}" y="${y+4}" text-anchor="middle" font-size="15" font-weight="600" fill="currentColor">${n}</text>`;
+  });
+ });
+ svg+=`</svg>`;
+ chart.innerHTML=svg;
+ table.innerHTML=`<p class="note">色付きの点は記録の種類を示します。各日の下にはミルクの合計量（mL）と、母乳・おしっこ・うんちの回数を表示しています。母乳のみ（0mL）は母乳回数に含みます。</p>`;
+}
+$('weeklyRefresh').addEventListener('click',renderWeekly);
+function render(){const today=dateKey(Date.now());for(const type of ['formula','pee','poop'])$(type+'Count').textContent=records.filter(r=>r.type===type&&dateKey(r.time)===today).length;$('breastCount').textContent=records.filter(r=>['breast','breastOnly','breastL','breastR'].includes(r.type)&&dateKey(r.time)===today).length;const root=$('history');root.replaceChildren();if(!records.length){const p=document.createElement('p');p.className='note';p.textContent='まだ記録がありません。上のボタンから記録できます。';root.append(p)}for(const r of sorted().slice(0,100)){const row=document.createElement('div');row.className='record';const info=document.createElement('div');const strong=document.createElement('strong');strong.textContent=labels[r.type]+(r.type==='formula'&&Number.isFinite(r.amount)?` · ${r.amount} mL`:'');const small=document.createElement('small');small.textContent=full(r.time);info.append(strong,small);const controls=document.createElement('div');const edit=document.createElement('button');edit.className='mini';edit.textContent='修正';edit.addEventListener('click',()=>{editing=r.id;$('editTime').value=localInput(r.time);$('editAmountWrap').hidden=r.type!=='formula';$('editAmount').required=r.type==='formula';$('editAmount').value=Number.isFinite(r.amount)?String(r.amount):'';$('editDialog').showModal()});const del=document.createElement('button');del.className='mini danger';del.textContent='削除';del.addEventListener('click',()=>{if(confirm(`${labels[r.type]}（${full(r.time)}）を削除しますか？`)){const old=records;records=records.filter(x=>x.id!==r.id);if(!save())records=old;render()}});controls.append(edit,del);row.append(info,controls);root.append(row)}tick();renderWeekly()}
+const presets=[40,50,60,80,100,120,140];for(const amount of presets){const b=document.createElement('button');b.type='button';b.textContent=amount+' mL';b.addEventListener('click',()=>{$('milkAmount').value=String(amount);updatePresets()});$('milkPresets').append(b)}// 「母乳のみ」はミルク0mLではなく母乳として記録し、ミルクの次回目安はリセットしない。
+const breastOnly=document.createElement('button');
+breastOnly.type='button';
+breastOnly.textContent='🤱 母乳のみ（0 mL）';
+breastOnly.style.gridColumn='1 / -1';
+breastOnly.style.background='#f5b9da';
+breastOnly.style.color='#101827';
+breastOnly.addEventListener('click',()=>{
+  $('milkDialog').close();
+  addRecord('breastOnly');
+});
+$('milkPresets').append(breastOnly);
+function updatePresets(){for(const b of $('milkPresets').children)b.classList.toggle('selected',parseInt(b.textContent,10)===Number($('milkAmount').value)&&$('milkAmount').value!=='')}function openMilk(){const prev=lastAmount();$('milkAmount').value=prev===undefined?'':String(prev);$('sameAmount').disabled=prev===undefined;$('sameAmount').textContent=prev===undefined?'前回の記録はありません':`前回と同じ量（${prev} mL）`;updatePresets();$('milkDialog').showModal()}$('sameAmount').addEventListener('click',()=>{const prev=lastAmount();if(prev!==undefined){$('milkAmount').value=String(prev);updatePresets()}});$('milkAmount').addEventListener('input',updatePresets);$('milkForm').addEventListener('submit',e=>{if(e.submitter?.value!=='save')return;const amount=Number($('milkAmount').value);if(!validAmount(amount)||$('milkAmount').value===''){e.preventDefault();alert('0〜500 mLの整数を入力してください');return}addRecord('formula',amount)});for(const b of document.querySelectorAll('[data-type]'))b.addEventListener('click',()=>{if(b.dataset.type==='formula')openMilk();else addRecord(b.dataset.type)});$('editForm').addEventListener('submit',e=>{if(e.submitter?.value!=='save')return;const value=$('editTime').value;const t=new Date(value).getTime();const r=records.find(x=>x.id===editing);const amount=Number($('editAmount').value);if(!Number.isFinite(t)||(r?.type==='formula'&&($('editAmount').value===''||!validAmount(amount)))){e.preventDefault();alert('正しい日時とミルク量を入力してください');return}if(r){const old={...r};r.time=t;if(r.type==='formula')r.amount=amount;if(!save())Object.assign(r,old)}render()});$('interval').value=String([120,150,180,210,240].includes(Number(settings.interval))?settings.interval:180);settings.interval=Number($('interval').value);$('interval').addEventListener('change',e=>{settings.interval=Number(e.target.value);saveSettings();tick()});function theme(){document.body.classList.toggle('light',!!settings.light);$('theme').textContent=settings.light?'🌙 暗く':'☀️ 明るく'}$('theme').addEventListener('click',()=>{settings.light=!settings.light;saveSettings();theme()});theme();$('export').addEventListener('click',()=>{const lines=['日時,種類,ミルク量(mL)',...sorted().map(r=>`"${new Date(r.time).toLocaleString('ja-JP')}","${labels[r.type].slice(2)}","${r.type==='formula'&&Number.isFinite(r.amount)?r.amount:''}"`)];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='babycare_records.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 // CSV復元: 旧版が出力する「日時,種類,ミルク量(mL)」に対応。
 function parseCsv(text){
   const result=[];let row=[],field='',quoted=false;
@@ -105,7 +187,7 @@ function parseCsvTime(value){
   if(date.getFullYear()!==y||date.getMonth()!==mo-1||date.getDate()!==d||date.getHours()!==h||date.getMinutes()!==mi||date.getSeconds()!==(se||0))return NaN;
   return date.getTime();
 }
-const csvTypes={'ミルク':'formula','母乳':'breast','おしっこ':'pee','うんち':'poop','授乳（旧記録）':'feed','母乳（左）':'breastL','母乳（右）':'breastR'};
+const csvTypes={'ミルク':'formula','母乳':'breast','母乳のみ（0 mL）':'breastOnly','おしっこ':'pee','うんち':'poop','授乳（旧記録）':'feed','母乳（左）':'breastL','母乳（右）':'breastR'};
 function recordFingerprint(r){
   return `${r.time}|${r.type}|${r.type==='formula'?(Number.isFinite(r.amount)?r.amount:''):''}`;
 }
@@ -153,6 +235,41 @@ $('importFile').addEventListener('change',async event=>{
     alert('CSVを読み込めませんでした。\n'+error.message+'\n記録は変更されていません。');
   }
 });
+
+// 45秒間操作がなければ、時計と4つの記録ボタンが見える位置に戻す。
+const IDLE_SCROLL_MS=45000;
+function updateAutoScrollButton(){
+  const enabled=settings.autoScroll!==false;
+  $('autoScrollToggle').textContent=enabled?'ON':'OFF';
+  $('autoScrollToggle').setAttribute('aria-pressed',String(enabled));
+}
+$('autoScrollToggle').addEventListener('click',()=>{
+  settings.autoScroll=settings.autoScroll===false;
+  saveSettings();updateAutoScrollButton();
+  lastInteraction=Date.now();idleScrolled=false;
+});
+updateAutoScrollButton();
+let lastInteraction=Date.now(),idleScrolled=false;
+function registerInteraction(){lastInteraction=Date.now();idleScrolled=false}
+['pointerdown','touchstart','keydown','wheel','scroll'].forEach(name=>{
+  window.addEventListener(name,registerInteraction,{passive:true});
+});
+function returnToRecordArea(){
+  if(activePage!=='home'||settings.autoScroll===false||document.hidden||idleScrolled||Date.now()-lastInteraction<IDLE_SCROLL_MS)return;
+  if(document.querySelector('dialog[open]')||document.activeElement?.matches('input,select,textarea'))return;
+  const clock=$('clockPanel'),buttons=$('recordPanel');
+  if(!clock||!buttons)return;
+  const viewport=window.innerHeight;
+  const clockTop=clock.getBoundingClientRect().top+window.scrollY;
+  const buttonsBottom=buttons.querySelector('.actions').getBoundingClientRect().bottom+window.scrollY;
+  // 時計をできるだけ表示しつつ、4ボタンが画面内に入る位置を優先。
+  const target=Math.max(clockTop-8,buttonsBottom-viewport+16,0);
+  if(Math.abs(window.scrollY-target)>12){
+    idleScrolled=true;
+    window.scrollTo({top:target,behavior:'smooth'});
+  }else idleScrolled=true;
+}
+setInterval(returnToRecordArea,1000);
 
 render();setInterval(()=>{tick();if(dateKey(Date.now())!==window.__lastDay){window.__lastDay=dateKey(Date.now());render()}},1000);window.__lastDay=dateKey(Date.now());document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});})();
 </script></body></html>
